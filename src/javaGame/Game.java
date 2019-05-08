@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Game extends Canvas implements Runnable{
 
 	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 820;
+	public static final int HEIGHT = 900;
 	public final String TITLE = "Game";
 	
 	private final int updateTime = 3;
