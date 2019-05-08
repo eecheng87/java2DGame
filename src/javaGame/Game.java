@@ -7,11 +7,12 @@ import javax.swing.JPanel;
 public class Game extends Canvas implements Runnable{
 
 	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 900;
+	public static final int HEIGHT = 930;
 	public final String TITLE = "Game";
 	
 	private final int updateTime = 3;
 	private boolean running = false;
+	private static JPanel map ;
 	private Thread thread;
 	
 	private synchronized void start() {
@@ -46,8 +47,10 @@ public class Game extends Canvas implements Runnable{
 				 * 
 				 * update frame
 				 */
+				((Map) map).display();
 
 				start = System.nanoTime();
+				
 			}
 			
 		}
@@ -61,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 		game.start();
  
 		JFrame frame = new JFrame();
-		JPanel map = new Map();
+		map = new Map();
 		//map.load();
 		//map.paintComponent(g);
 		frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));

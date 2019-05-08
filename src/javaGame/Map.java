@@ -2,6 +2,9 @@ package javaGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import com.sun.prism.Image;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -11,9 +14,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 public class Map extends JPanel{
+	private boolean init = false;
 	private BufferedImage dirt;
 	private BufferedImage sky;
 	private BufferedImage grass;
+	private final int UNITS = 50;
+	private Graphics g;
+	private java.awt.Image img;
 	/*
 	 *  sky = 0
 	 *  grass = 1
@@ -29,26 +36,73 @@ public class Map extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.init();
+		
 	}
-	public void init(){
-		char ch = 0;
-		String line=null;
-		 
-		 
+	public void readMap(String path){
+		int j=0;
+		String line=null; 
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("src/mapInfo/initMap.txt"));
-			while ((line = br.readLine()) != null) 
-				  System.out.println(line);
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			while ((line = br.readLine()) != null) {
+				if(line.length()>1)
+					for(int i=0; i<line.length();i++) {
+						map[j][i] = (int)line.charAt(i)-48;			 
+					}
+				j++;
+			}			 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		 
-		 
+		 	 
 	}
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(sky, 0, 0,50,50, this);
-		g.drawImage(dirt, 100, 100,50,50, this);
+		/*
+		 *  call-back function
+		 */
+		if(!init) {
+			this.readMap("src/mapInfo/initMap.txt");
+			super.paintComponent(g);
+			for(int i=0; i<18; i++)
+				for(int j=0; j<24; j++) {
+					if(map[i][j]==0)
+						g.drawImage(sky, j*UNITS, i*UNITS, UNITS, UNITS, this);
+					else if(map[i][j]==1)
+						g.drawImage(grass, j*UNITS, i*UNITS, UNITS, UNITS, this);
+					else if(map[i][j]==2)
+						g.drawImage(dirt, j*UNITS, i*UNITS, UNITS , UNITS, this);
+				}
+			init = true;
+		}else {
+			this.readMap("src/mapInfo/testMap.txt");
+			for(int i=0; i<18; i++)
+				for(int j=0; j<24; j++) {
+					if(map[i][j]==0)
+						g.drawImage(sky, j*UNITS, i*UNITS, UNITS, UNITS, this);
+					else if(map[i][j]==1)
+						g.drawImage(grass, j*UNITS, i*UNITS, UNITS, UNITS, this);
+					else if(map[i][j]==2)
+						g.drawImage(dirt, j*UNITS, i*UNITS, UNITS , UNITS, this);
+				}
+		}
 	}
+	
+	public void display() {
+		/*
+		 *  this function is for update frame
+		 *  its call-back function is paintComponent()
+		 *  
+		 *  it is called at Game.public void run()
+		 *  
+		 */
+		if(g==null) {
+			img = this.createImage(Game.WIDTH,Game.HEIGHT);
+			if(img!=null)
+				g = img.getGraphics();
+		}
+		if(g!=null) {
+			super.paint(g);
+		}
+		this.repaint();
+	}
+
 }
