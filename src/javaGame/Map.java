@@ -46,20 +46,38 @@ public class Map extends JPanel{
 			while ((line = br.readLine()) != null) {
 				if(line.length()>1)
 					for(int i=0; i<line.length();i++) {
-						map[j][i] = (int)line.charAt(i)-48;			 
+						map[i][j] = (int)line.charAt(i)-48;			 
 					}
 				j++;
 			}			 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		 	 
 	}
+	public void autoGeneMap() {
+		/*
+		 *  this function is for generate map dynamically
+		 */
+		
+		/*
+		 *  right offset 1 unit
+		 */
+		for(int i=17; i>=0; i-- )
+			for(int j=23; j>0; j--) {
+				map[i][j] = map[i][j-1];
+			}
+		for(int i=0; i<18;i++)
+			map[i][0] = 2;
+		
+	}
+	
 	public void paintComponent(Graphics g) {
 		/*
 		 *  call-back function
 		 */
 		if(!init) {
+			// generate first map
+
 			this.readMap("src/mapInfo/initMap.txt");
 			super.paintComponent(g);
 			for(int i=0; i<18; i++)
@@ -73,7 +91,9 @@ public class Map extends JPanel{
 				}
 			init = true;
 		}else {
-			this.readMap("src/mapInfo/testMap.txt");
+			//this.readMap("src/mapInfo/testMap.txt");
+			// general condition
+			autoGeneMap();
 			for(int i=0; i<18; i++)
 				for(int j=0; j<24; j++) {
 					if(map[i][j]==0)
