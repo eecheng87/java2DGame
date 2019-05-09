@@ -59,9 +59,8 @@ public class Map extends JPanel{
 		 *  this function is for generate map dynamically
 		 */
 		
-		/*
-		 *  right offset 1 unit
-		 */
+		//  right shift 1 unit
+		 
 		for(int i=17; i>=0; i-- )
 			for(int j=23; j>0; j--) {
 				map[i][j] = map[i][j-1];
