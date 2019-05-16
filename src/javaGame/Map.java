@@ -27,6 +27,7 @@ public class Map extends JPanel{
 	 *  dirt = 2
 	 */
 	private int[][] map = new int[18][24];
+	private MapBuffer mpbuf = new MapBuffer();
 	Map() {
 		try {
 			grass = ImageIO.read(new File("src/img/grass.png"));
@@ -65,10 +66,17 @@ public class Map extends JPanel{
 			for(int j=23; j>0; j--) {
 				map[i][j] = map[i][j-1];
 			}
-		for(int i=0; i<18;i++)
-			map[i][0] = 2;
+		
+		mpbuf.updateRMmap(map);
+		Component compo = new Component();
+		if(!mpbuf.isFull(compo.getWidth())) {
+			// write new component into buffer
+			mpbuf.wirteBuf(compo);
+		}
 		
 	}
+	
+	
 	
 	public void paintComponent(Graphics g) {
 		/*
