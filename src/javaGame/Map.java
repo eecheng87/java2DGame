@@ -18,21 +18,29 @@ public class Map extends JPanel{
 	private BufferedImage dirt;
 	private BufferedImage sky;
 	private BufferedImage grass;
+	private BufferedImage coin_1;
+	private BufferedImage coin_2;
 	private final int UNITS = 50;
 	private Graphics g;
+	private int animationState=0;
 	private java.awt.Image img;
 	/*
 	 *  sky = 0
 	 *  grass = 1
 	 *  dirt = 2
+	 *  coin_1 = 3
+	 *  coin_2 = 4
 	 */
 	private int[][] map = new int[18][24];
 	private MapBuffer mpbuf = new MapBuffer();
 	Map() {
 		try {
+			// set up each pixel image
 			grass = ImageIO.read(new File("src/img/grass.png"));
 			dirt = ImageIO.read(new File("src/img/dirt.png"));
 			sky = ImageIO.read(new File("src/img/sky.png"));
+			coin_1 = ImageIO.read(new File("src/img/coin_1.png"));
+			coin_2 = ImageIO.read(new File("src/img/coin_2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,8 +72,16 @@ public class Map extends JPanel{
 		 
 		for(int i=17; i>=0; i-- )
 			for(int j=23; j>0; j--) {
-				map[i][j] = map[i][j-1];
+				// implement animation effect
+				if(map[i][j-1]==3)
+					map[i][j] = 4;
+				else if(map[i][j-1]==4)
+					map[i][j] = 3;
+				else
+					map[i][j] = map[i][j-1];
 			}
+		 
+ 
 		
 		mpbuf.updateRMmap(map);
 		Component compo = new Component();
@@ -89,16 +105,21 @@ public class Map extends JPanel{
 			super.paintComponent(g);
 			for(int i=0; i<18; i++)
 				for(int j=0; j<24; j++) {
+					// config corresponding image with map info.
 					if(map[i][j]==0)
 						g.drawImage(sky, j*UNITS, i*UNITS, UNITS, UNITS, this);
 					else if(map[i][j]==1)
 						g.drawImage(grass, j*UNITS, i*UNITS, UNITS, UNITS, this);
 					else if(map[i][j]==2)
 						g.drawImage(dirt, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==3)
+						g.drawImage(coin_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==4)
+						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 			init = true;
 		}else {
-			//this.readMap("src/mapInfo/testMap.txt");
+			
 			// general condition
 			autoGeneMap();
 			for(int i=0; i<18; i++)
@@ -109,6 +130,10 @@ public class Map extends JPanel{
 						g.drawImage(grass, j*UNITS, i*UNITS, UNITS, UNITS, this);
 					else if(map[i][j]==2)
 						g.drawImage(dirt, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==3)
+						g.drawImage(coin_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==4)
+						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 		}
 	}
@@ -127,9 +152,10 @@ public class Map extends JPanel{
 				g = img.getGraphics();
 		}
 		if(g!=null) {
-			super.paint(g);
+			//super.paint(g); <----- this is bug!!
+			this.repaint();
 		}
-		this.repaint();
+		
 	}
 
 }

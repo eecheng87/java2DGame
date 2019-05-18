@@ -3,15 +3,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Random;
 public class Component {
+	/*
+	 *  only thing you need to change is 
+	 *  `private int totalType 
+	 *  `private String[] compoName
+	 *  if you want to add more component
+	 */
 	private int width;
 	private final int height=18;
 	public int[][]cmap;
 	private int type; // type of component
-	private final int totalType = 2;
-	private final String[] compoName = {"empty","column"};
+	private final int totalType = 3;
+	private final String[] compoName = {"empty","column","coin_map_1"};
 	Component(){
 		width = 0;
-		cmap = new int[18][4];
+		cmap = new int[18][10];
 		Random rand = new Random();
 		type = rand.nextInt(totalType); // 0~totalType-1
 		
