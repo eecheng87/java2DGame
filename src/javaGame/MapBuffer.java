@@ -20,10 +20,6 @@ public class MapBuffer {
 		for(int j=start,k=0; j>=start-com.getWidth();j--,k++)
 			for(int i=0; i<18; i++)
 				{
-				//System.out.print(i);
-				//System.out.print(j);
-				//System.out.print(k);
-				//System.out.println("A");
 				buf[i][j] = com.cmap[i][k];
 				}
 		start -= com.getWidth();

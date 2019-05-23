@@ -21,10 +21,15 @@ public class Map extends JPanel{
 	private BufferedImage coin_1;
 	private BufferedImage coin_2;
 	private BufferedImage needle;
+	private BufferedImage mario_1;
+	private BufferedImage mario_2;
+	private BufferedImage mario_3;
 	private final int UNITS = 50;
 	private Graphics g;
 	private int animationState=0;
 	private java.awt.Image img;
+	private Mario mario;
+	///////////////////////////////
 	/*
 	 *  sky = 0
 	 *  grass = 1
@@ -32,8 +37,11 @@ public class Map extends JPanel{
 	 *  coin_1 = 3
 	 *  coin_2 = 4
 	 *  needle = 5
+	 *  mario_1 = 6
+	 *  mario_2 = 7
+	 *  mario_3 = 8
 	 *  
-	 */
+	 /////////////////////////////*/
 	private int[][] map = new int[18][24];
 	private MapBuffer mpbuf = new MapBuffer();
 	
@@ -54,10 +62,33 @@ public class Map extends JPanel{
 			coin_1 = ImageIO.read(new File("src/img/coin_1.png"));
 			coin_2 = ImageIO.read(new File("src/img/coin_2.png"));
 			needle = ImageIO.read(new File("src/img/needle.png"));
+			mario_1 = ImageIO.read(new File("src/img/mario_1.png"));
+			mario_2 = ImageIO.read(new File("src/img/mario_2.png"));
+			mario_3 = ImageIO.read(new File("src/img/mario_3.png"));
+				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	
+	}
+	Map(Mario m){
+		mario = m;
+		try {
+			// set up each pixel image
+			grass = ImageIO.read(new File("src/img/grass.png"));
+			dirt = ImageIO.read(new File("src/img/dirt.png"));
+			sky = ImageIO.read(new File("src/img/sky.png"));
+			coin_1 = ImageIO.read(new File("src/img/coin_1.png"));
+			coin_2 = ImageIO.read(new File("src/img/coin_2.png"));
+			needle = ImageIO.read(new File("src/img/needle.png"));
+			mario_1 = ImageIO.read(new File("src/img/mario_1.png"));
+			mario_2 = ImageIO.read(new File("src/img/mario_2.png"));
+			mario_3 = ImageIO.read(new File("src/img/mario_3.png"));
+				
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
 	}
 	public void readMap(String path){
@@ -86,10 +117,14 @@ public class Map extends JPanel{
 		for(int i=17; i>=0; i-- )
 			for(int j=23; j>0; j--) {
 				// implement animation effect
+				// money animation
 				if(map[i][j-1]==3)
 					map[i][j] = 4;
 				else if(map[i][j-1]==4)
 					map[i][j] = 3;
+				else if(map[i][j-1]==6||map[i][j-1]==7||map[i][j-1]==8)
+					// if last moment is mario, next cycle => clear
+					map[i][j] = 0;
 				else
 					map[i][j] = map[i][j-1];
 			}
@@ -137,12 +172,22 @@ public class Map extends JPanel{
 						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==5)
 						g.drawImage(needle, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==6)
+						g.drawImage(mario_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==7)
+						g.drawImage(mario_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==8)
+						g.drawImage(mario_3, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 			init = true;
 		}else {
 			
 			// general condition
 			autoGeneMap();
+			// set PLAYER's image
+			mario.setState(marioSprite(mario.getState()));
+			map[mario.getX()][mario.getY()] = mario.getState();
+			
 			for(int i=0; i<18; i++)
 				for(int j=0; j<24; j++) {
 					if(map[i][j]==0)
@@ -157,10 +202,23 @@ public class Map extends JPanel{
 						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==5)
 						g.drawImage(needle, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==6)
+						g.drawImage(mario_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==7)
+						g.drawImage(mario_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==8)
+						g.drawImage(mario_3, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 		}
 	}
-	
+	public int marioSprite(int state) {
+		if(state==6) 
+			return 7;
+		else if(state==7)
+			return 8;
+		else
+			return 6;
+	}
 	public void display() {
 		/*
 		 *  this function is for update frame

@@ -14,7 +14,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private static JPanel map ;
 	private Thread thread;
-	
+	private static Mario mario = new Mario();
 	private synchronized void start() {
 		if(running) {
 			
@@ -47,6 +47,11 @@ public class Game extends Canvas implements Runnable{
 				 * 
 				 * update frame
 				 */
+				if(!mario.getAlive()) {
+					/*
+					 *  game over!
+					 */
+				}
 				((Map) map).display();
 
 				start = System.nanoTime();
@@ -60,17 +65,19 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Game game = new Game();
+		//Mario mario = new Mario();
+		
+		
 		
 		game.start();
  
 		JFrame frame = new JFrame();
-		map = new Map();
-		//map.load();
-		//map.paintComponent(g);
+		map = new Map(mario);
+		
 		frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMaximumSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMinimumSize(new Dimension(WIDTH,HEIGHT));
-		//frame.add(map);
+	
 		frame.add(game);
 		frame.add(map);
 		map.setPreferredSize(new Dimension(50,50));
