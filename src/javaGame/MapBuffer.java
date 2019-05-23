@@ -5,12 +5,13 @@ public class MapBuffer {
 /*
  *  class `MapBuffer` is for storing the map which should appear next cycle
  */
-	private int[][] buf = new int[18][20];
+	private final int bufSize = 30;
+	private int[][] buf = new int[18][bufSize];
 	private int start; // means which column can start to be write
 	MapBuffer() {
-		start = 19;
+		start = bufSize-1;
 		for(int i=0; i<18; i++)
-			for(int j=0; j<20; j++) {
+			for(int j=0; j<bufSize; j++) {
 				// initialize
 				buf[i][j] = -1;
 			}
@@ -29,16 +30,16 @@ public class MapBuffer {
 	}
 	public void updateRMmap(int[][] m) {
 		for(int i=0; i<18; i++)
-			m[i][0] = buf[i][19];
+			m[i][0] = buf[i][bufSize-1];
 		
 		// right shift buf
 		for(int i=17; i>=0; i-- )
-			for(int j=19; j>0; j--) {
+			for(int j=bufSize-1; j>0; j--) {
 				buf[i][j] = buf[i][j-1];
 			}
 		for(int i=0; i<18;i++)
 			buf[i][0] = -1; // empty
-		if(start!=19)
+		if(start!=bufSize-1)
 			start++;
 	}
 	public boolean isFull(int needSize) {
@@ -52,5 +53,10 @@ public class MapBuffer {
 					return true;
 			}
 		return false;
+	}
+	public void clear() {
+		for(int i=0;i<18;i++)
+			for(int j=0;j<bufSize;j++)
+				buf[i][j]=-1;
 	}
 }

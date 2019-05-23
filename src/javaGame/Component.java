@@ -13,14 +13,23 @@ public class Component {
 	private final int height=18;
 	public int[][]cmap;
 	private int type; // type of component
-	private final int totalType = 3;
-	private final String[] compoName = {"empty","column","coin_map_1"};
+	private final int totalType = 4;
+	private final String[] compoName = {"empty","column","coin_map_1","rand_map_1"};
 	Component(){
 		width = 0;
 		cmap = new int[18][10];
 		Random rand = new Random();
 		type = rand.nextInt(totalType); // 0~totalType-1
+		read(type);
+	
+	}
+	
+	Component(int num){
 		
+	}
+	public void read(int type) {
+		width = 0;
+		cmap = new int[18][10];
 		
 		int j=0;
 		String line=null; 
@@ -35,15 +44,16 @@ public class Component {
 				}
 				j++;
 			}
-			//System.out.println(type);
-			//System.out.println(width);
+			 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	
 	}
-	
 	public int getWidth() {
 		return width;
+	}
+	
+	public int getType() {
+		return type;
 	}
 }

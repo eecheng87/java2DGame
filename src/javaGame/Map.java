@@ -20,6 +20,7 @@ public class Map extends JPanel{
 	private BufferedImage grass;
 	private BufferedImage coin_1;
 	private BufferedImage coin_2;
+	private BufferedImage needle;
 	private final int UNITS = 50;
 	private Graphics g;
 	private int animationState=0;
@@ -30,9 +31,20 @@ public class Map extends JPanel{
 	 *  dirt = 2
 	 *  coin_1 = 3
 	 *  coin_2 = 4
+	 *  needle = 5
+	 *  
 	 */
 	private int[][] map = new int[18][24];
 	private MapBuffer mpbuf = new MapBuffer();
+	
+	/*
+	 * important:
+	 * if you change number of `Component.totalType
+	 * you should also change `Map.totalType 
+	 * 
+	 */
+	private final int totalType = 4;
+	private int[] compoNum = new int[totalType];
 	Map() {
 		try {
 			// set up each pixel image
@@ -41,6 +53,7 @@ public class Map extends JPanel{
 			sky = ImageIO.read(new File("src/img/sky.png"));
 			coin_1 = ImageIO.read(new File("src/img/coin_1.png"));
 			coin_2 = ImageIO.read(new File("src/img/coin_2.png"));
+			needle = ImageIO.read(new File("src/img/needle.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +98,9 @@ public class Map extends JPanel{
 		
 		mpbuf.updateRMmap(map);
 		Component compo = new Component();
+		compoNum[compo.getType()]++;
+		
+		
 		if(!mpbuf.isFull(compo.getWidth())) {
 			// write new component into buffer
 			mpbuf.wirteBuf(compo);
@@ -92,6 +108,9 @@ public class Map extends JPanel{
 		
 	}
 	
+	public boolean balance(int [][]arr) {
+		return true;
+	}
 	
 	
 	public void paintComponent(Graphics g) {
@@ -116,6 +135,8 @@ public class Map extends JPanel{
 						g.drawImage(coin_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==4)
 						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==5)
+						g.drawImage(needle, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 			init = true;
 		}else {
@@ -134,6 +155,8 @@ public class Map extends JPanel{
 						g.drawImage(coin_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==4)
 						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==5)
+						g.drawImage(needle, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 		}
 	}
