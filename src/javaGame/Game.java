@@ -74,6 +74,7 @@ public class Game extends Canvas implements Runnable{
  
 		JFrame frame = new JFrame();
 		map = new Map(mario);
+		mario.setMap(map);
 		frame.addKeyListener(mario);
 		frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMaximumSize(new Dimension(WIDTH,HEIGHT));

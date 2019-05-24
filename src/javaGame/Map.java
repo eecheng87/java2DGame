@@ -238,5 +238,9 @@ public class Map extends JPanel{
 		}
 		
 	}
+	
+	public int[][] getMap(){
+		return map;
+	}
 
 }
