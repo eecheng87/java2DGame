@@ -1,16 +1,17 @@
 package javaGame;
 
 import java.awt.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+ 
 public class Game extends Canvas implements Runnable{
 
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 930;
 	public final String TITLE = "Game";
 	
-	private final int updateTime = 3;
+	private final int updateTime = 2;
 	private boolean running = false;
 	private static JPanel map ;
 	private Thread thread;
@@ -73,7 +74,7 @@ public class Game extends Canvas implements Runnable{
  
 		JFrame frame = new JFrame();
 		map = new Map(mario);
-		
+		frame.addKeyListener(mario);
 		frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMaximumSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMinimumSize(new Dimension(WIDTH,HEIGHT));

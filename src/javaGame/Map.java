@@ -51,7 +51,7 @@ public class Map extends JPanel{
 	 * you should also change `Map.totalType 
 	 * 
 	 */
-	private final int totalType = 4;
+	private final int totalType = 7;
 	private int[] compoNum = new int[totalType];
 	Map() {
 		try {
