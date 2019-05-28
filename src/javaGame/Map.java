@@ -51,7 +51,7 @@ public class Map extends JPanel{
 	 * you should also change `Map.totalType 
 	 * 
 	 */
-	private final int totalType = 7;
+	private final int totalType = 9;
 	private int[] compoNum = new int[totalType];
 	Map() {
 		try {
@@ -132,9 +132,12 @@ public class Map extends JPanel{
  
 		
 		mpbuf.updateRMmap(map);
+	 
 		Component compo = new Component();
 		compoNum[compo.getType()]++;
 		
+		if(mpbuf.nearlyFull(4))
+			mpbuf.turnOnClearMore();
 		
 		if(!mpbuf.isFull(compo.getWidth())) {
 			// write new component into buffer

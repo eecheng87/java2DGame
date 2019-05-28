@@ -8,8 +8,10 @@ public class MapBuffer {
 	private final int bufSize = 30;
 	private int[][] buf = new int[18][bufSize];
 	private int start; // means which column can start to be write
+	private boolean clearMore;
 	MapBuffer() {
 		start = bufSize-1;
+		clearMore = false;
 		for(int i=0; i<18; i++)
 			for(int j=0; j<bufSize; j++) {
 				// initialize
@@ -20,7 +22,7 @@ public class MapBuffer {
 		for(int j=start,k=0; j>=start-com.getWidth();j--,k++)
 			for(int i=0; i<18; i++)
 				{
-				buf[i][j] = com.cmap[i][k];
+					buf[i][j] = com.cmap[i][k];
 				}
 		start -= com.getWidth();
 	}
@@ -35,7 +37,14 @@ public class MapBuffer {
 			}
 		for(int i=0; i<18;i++)
 			buf[i][0] = -1; // empty
-		if(start!=bufSize-1)
+		
+		if(clearMore) {
+			for(int i=1;i<15;i++)
+				for(int j=0;j<18;j++)
+					buf[j][i] = -1;
+			turnOffClearMore();
+			start = 14;
+		}else if(start!=bufSize-1)
 			start++;
 	}
 	public boolean isFull(int needSize) {
@@ -50,9 +59,23 @@ public class MapBuffer {
 			}
 		return false;
 	}
+	public boolean nearlyFull(int n) {
+		for(int i=0; i<18; i++)
+			for(int j=0; j<n; j++) {
+				if(buf[i][j]>=0)
+					return true;
+			}
+		return false;
+	}
 	public void clear() {
 		for(int i=0;i<18;i++)
 			for(int j=0;j<bufSize;j++)
 				buf[i][j]=-1;
+	}
+	public void turnOnClearMore() {
+		clearMore = true;
+	}
+	public void turnOffClearMore() {
+		clearMore = false;
 	}
 }
