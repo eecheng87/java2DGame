@@ -5,14 +5,14 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 
-public class Login_Window extends JFrame
+public class Register_Window extends JFrame
 {
-	// Property of Login_Window.
+	// Property of Register_Window.
 	// Size of Login_Window.
 	public static final int WIDTH_WINDOW = 1000;
 	public static final int HEIGHT_WINDOW = 600;
 
-	// Position of Login_Window.
+	// Position of Register_Window.
 	public static final int POSITION_WINDOW_X = 450;
 	public static final int POSITION_WINDOW_Y = 200;
 
@@ -80,15 +80,15 @@ public class Login_Window extends JFrame
 	public static final int POSITION_BUTTON_Y = 360;
 
 	// Constructor.
- 	public Login_Window()
+ 	public Register_Window()
 	{
 		// Set basic property.
-		super("Login");
+		super("Register");
 		this.setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
 		this.setLocation(POSITION_WINDOW_X, POSITION_WINDOW_Y);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setBackground(Color.ORANGE);
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 
 		// Add a JTextField to Login_Window for username.
 		enter_field_username = new JTextField("");
@@ -123,14 +123,14 @@ public class Login_Window extends JFrame
 		this.add(label_password);
 
 		// Add a JButton to Login_Window.
-		confirm_button = new JButton("LOGIN");
+		confirm_button = new JButton("Register");
 		confirm_button.setToolTipText("Make sure your name and password then CLICK");
 		confirm_button.setSize(WIDTH_BUTTON, HEIGHT_BUTTON);
 		confirm_button.setLocation(POSITION_BUTTON_X, POSITION_BUTTON_Y);
 		confirm_button.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE));
-		confirm_button.setBackground(Color.YELLOW);
+		confirm_button.setBackground(Color.BLUE);
 		confirm_button.setForeground(Color.LIGHT_GRAY);
-		confirm_button.addActionListener(new Listener_For_Login_Button(enter_field_username, enter_field_password, this));
+		confirm_button.addActionListener(new Listener_For_Register_Button(enter_field_username, enter_field_password, this));
 		this.add(confirm_button);
 
 		// Make the window visible by default.

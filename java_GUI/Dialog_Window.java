@@ -1,5 +1,5 @@
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,9 +11,6 @@ public class Dialog_Window extends JFrame
 	// Font size of the text in JTextArea.
 	public static final int FONT_SIZE_REMINDER = 20;
 	
-	// Title of Dialog_Window.
-	public static final String TITLE = "Dialog Window";
-
 	// Size of Dialog_Window.
 	public static final int WIDTH_WINDOW = 600;
 	public static final int HEIGHT_WINDOW = 360;
@@ -22,16 +19,25 @@ public class Dialog_Window extends JFrame
 	public static final int POSITION_WINDOW_X = 650;
 	public static final int POSITION_WINDOW_Y = 350;
 
-	// JTextArea to show the reminder.
-	private JTextArea reminder;
+	// JLabel to show the reminder_1 and reminder_2.
+	private JLabel reminder_1;
+	private JLabel reminder_2;
 
-	// Size of JTextArea for reminder.
-	public static final int WIDTH_REMINDER = 500;
-	public static final int HEIGHT_REMINDER = 150;
+	// Size of JLabel for reminder_1.
+	public static final int WIDTH_REMINDER_1 = 600;
+	public static final int HEIGHT_REMINDER_1 = 60;
 	
-	// Position of JTextArea for reminder.
-	public static final int POSITION_REMINDER_X = 80;
-	public static final int POSITION_REMINDER_Y = 100;
+	// Position of JLabel for reminder_1.
+	public static final int POSITION_REMINDER_X_1 = 0;
+	public static final int POSITION_REMINDER_Y_1 = 100;
+	
+	// Size of JLabel for reminder_2.
+	public static final int WIDTH_REMINDER_2 = 600;
+	public static final int HEIGHT_REMINDER_2 = 60;
+	
+	// Position of JLabel for reminder_2.
+	public static final int POSITION_REMINDER_X_2 = 0;
+	public static final int POSITION_REMINDER_Y_2 = 140;
 
 	// Button for user to choose.
 	private JButton yes_button;
@@ -56,22 +62,31 @@ public class Dialog_Window extends JFrame
 	public Dialog_Window(String username)
 	{
 		// Set basic property.
-		super(TITLE);
+		super("Dialog");
 		this.setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
 		this.setLocation(POSITION_WINDOW_X, POSITION_WINDOW_Y);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.GRAY);
 
-		// Add a JTextArea to Login_Window for username.
-		reminder = new JTextArea("There is no \"" + username + "\" in the record." + "\n Do you want to create a new account?");
-		reminder.setSize(WIDTH_REMINDER, HEIGHT_REMINDER);
-		reminder.setLocation(POSITION_REMINDER_X, POSITION_REMINDER_Y);
-		reminder.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_REMINDER));
-		reminder.setBackground(Color.GRAY);
-		reminder.setForeground(Color.WHITE);
-		reminder.setEditable(false);
-		this.add(reminder);
+		// Add two JLabel to Login_Window.
+		reminder_1 = new JLabel();
+		reminder_1.setText("Please check username \"" + username + "\" and password again.");
+		reminder_1.setSize(WIDTH_REMINDER_1, HEIGHT_REMINDER_1);
+		reminder_1.setLocation(POSITION_REMINDER_X_1, POSITION_REMINDER_Y_1);
+		reminder_1.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_REMINDER));
+		reminder_1.setForeground(Color.WHITE);
+		reminder_1.setHorizontalAlignment(JLabel.CENTER);
+		this.add(reminder_1);
+		
+		reminder_2 = new JLabel();
+		reminder_2.setText("Do you want to create a new account?");
+		reminder_2.setSize(WIDTH_REMINDER_2, HEIGHT_REMINDER_2);
+		reminder_2.setLocation(POSITION_REMINDER_X_2, POSITION_REMINDER_Y_2);
+		reminder_2.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_REMINDER));
+		reminder_2.setForeground(Color.WHITE);
+		reminder_2.setHorizontalAlignment(JLabel.CENTER);
+		this.add(reminder_2);
 
 		// Add a yes_button to Login_Window.
 		yes_button = new JButton("YES");
@@ -81,7 +96,7 @@ public class Dialog_Window extends JFrame
 		yes_button.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_BUTTON));
 		yes_button.setBackground(Color.GREEN);
 		yes_button.setForeground(Color.WHITE);
-		//yes_button.addActionListener(new Listener_For_Button(enter_field_username, enter_field_password));
+		yes_button.addActionListener(new Listener_For_Yes_No_Button("Yes", this));
 		this.add(yes_button);
 		
 		// Add a no_button to Login_Window.
@@ -92,8 +107,9 @@ public class Dialog_Window extends JFrame
 		no_button.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_BUTTON));
 		no_button.setBackground(Color.RED);
 		no_button.setForeground(Color.WHITE);
-		//no_button.addActionListener(new Listener_For_Button(enter_field_username, enter_field_password));
+		no_button.addActionListener(new Listener_For_Yes_No_Button("No", this));
 		this.add(no_button);
+		
 		
 		// Make the window visible by default.
 		this.setVisible(true);
