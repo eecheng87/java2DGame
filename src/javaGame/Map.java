@@ -3,7 +3,7 @@ package javaGame;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.sun.prism.Image;
+//import com.sun.prism.Image;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

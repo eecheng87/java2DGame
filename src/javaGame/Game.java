@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		while(!shutDown)System.out.println("");
+		while(!shutDown)System.out.print("");
 		write_score();
 		frame.setVisible(false);
 		frame.dispose();
