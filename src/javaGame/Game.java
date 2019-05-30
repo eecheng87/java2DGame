@@ -1,6 +1,12 @@
 package javaGame;
-
+import java.io.PrintWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java_GUI.*;
 import java.awt.*;
+import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,12 +16,17 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 930;
 	public final String TITLE = "Game";
+	public static int score=0;
+	public static int count=0;
+	public static String usrName;
 	
 	private final int updateTime = 2;
 	private boolean running = false;
 	private static JPanel map ;
 	private Thread thread;
 	private static Mario mario = new Mario();
+	private static JFrame frame;
+	private static boolean shutDown=false;
 	private synchronized void start() {
 		if(running) {
 			
@@ -48,10 +59,15 @@ public class Game extends Canvas implements Runnable{
 				 * 
 				 * update frame
 				 */
+				
+				Random rand = new Random();
+				score+=rand.nextInt(11);
+			
 				if(!mario.getAlive()) {
 					/*
 					 *  game over!
 					 */
+					shutDown=true;
 				}
 				((Map) map).display();
 
@@ -68,11 +84,17 @@ public class Game extends Canvas implements Runnable{
 		Game game = new Game();
 		//Mario mario = new Mario();
 		
+		Login_Window login_window = new Login_Window();
 		
+		while(!login_window.is_close)
+			usrName = login_window.enter_field_username.getText();
 		
+		System.out.println("usrName = " + usrName);
+		
+		//System.out.print("B");
 		game.start();
  
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		map = new Map(mario);
 		mario.setMap(map);
 		frame.addKeyListener(mario);
@@ -91,8 +113,29 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
+		while(!shutDown)System.out.println("");
+		write_score();
+		frame.setVisible(false);
+		frame.dispose();
+		System.exit(0);
+	}
+	
+	public static void write_score()
+	{
+		PrintWriter score_writer;
 		
+		try
+		{
+			// Keep the new account.
+			score_writer = new PrintWriter(new FileOutputStream("src/java_GUI/SCORE" + "_" + usrName + ".txt"));
+			score_writer.println(usrName + " " + score);
+			score_writer.flush();
+			score_writer.close();
+		}
+		catch (FileNotFoundException exception)
+		{
+			exception.printStackTrace();
+		}
 		
 	}
-
 }

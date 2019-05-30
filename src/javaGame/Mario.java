@@ -58,6 +58,7 @@ public class Mario implements KeyListener{
 				break;
 			case KeyEvent.VK_RIGHT:
 				System.out.println("right");
+				alive = false;
 				break;
 			case KeyEvent.VK_LEFT:
 				System.out.println("left");

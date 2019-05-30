@@ -1,3 +1,4 @@
+package java_GUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -8,8 +9,9 @@ import java.util.StringTokenizer;
 
 public class Listener_For_Login_Button implements ActionListener
 {
+	
 	// Path of the record file.
-	private String path_of_record = "./ACCOUNT.txt";
+	private String path_of_record = "src/java_GUI/ACCOUNT.txt";
 
 	// Scanner for input from record file.
 	private Scanner record_reader;
@@ -33,6 +35,7 @@ public class Listener_For_Login_Button implements ActionListener
 
 		// Reference to the Login_Window.
 		ref_window = window;
+		
 	}
 
 	// Action performed when the "confirm_button" is clicked.
@@ -68,11 +71,13 @@ public class Listener_For_Login_Button implements ActionListener
 				{
 					// Show the message.
 					Message_Window message_window = new Message_Window("Login successfully.");
-
+					
+					ref_window.is_close = true;
+					
 					// Close the Login_Window.
 					ref_window.setVisible(false);
 					ref_window.dispose();	
-
+	
 					return;
 				}
 			}

@@ -1,3 +1,4 @@
+package java_GUI;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -7,6 +8,8 @@ import java.awt.Font;
 
 public class Login_Window extends JFrame
 {
+	public boolean is_close;
+	
 	// Property of Login_Window.
 	// Size of Login_Window.
 	public static final int WIDTH_WINDOW = 1000;
@@ -18,7 +21,7 @@ public class Login_Window extends JFrame
 
 	// Property of JTextField for username.
 	// TextField for username.
-	private JTextField enter_field_username;
+	public JTextField enter_field_username;
 	
 	// Size of JTextField for username.
 	public static final int WIDTH_ENTER_FIELD_USERNAME = 450;
@@ -81,7 +84,7 @@ public class Login_Window extends JFrame
 
 	// Constructor.
  	public Login_Window()
-	{
+	{	
 		// Set basic property.
 		super("Login");
 		this.setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
@@ -135,5 +138,7 @@ public class Login_Window extends JFrame
 
 		// Make the window visible by default.
 		this.setVisible(true);
+		
+		is_close = false;
 	}
 }

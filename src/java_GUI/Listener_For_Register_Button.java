@@ -1,3 +1,4 @@
+package java_GUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -11,7 +12,7 @@ import java.util.StringTokenizer;
 public class Listener_For_Register_Button implements ActionListener
 {
 	// Path of the record file.
-	private String path_of_record = "./ACCOUNT.txt";
+	private String path_of_record = "src/java_GUI/ACCOUNT.txt";
 
 	// StringTokenizer for checking whether username is legal.
 	StringTokenizer st;
