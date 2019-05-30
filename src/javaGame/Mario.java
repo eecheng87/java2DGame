@@ -54,6 +54,7 @@ public class Mario implements KeyListener{
 				 */
 				break;
 			case KeyEvent.VK_DOWN:
+				
 				System.out.println("DOWN");
 				break;
 			case KeyEvent.VK_RIGHT:
