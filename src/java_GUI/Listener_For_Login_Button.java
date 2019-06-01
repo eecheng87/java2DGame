@@ -11,7 +11,7 @@ public class Listener_For_Login_Button implements ActionListener
 {
 	
 	// Path of the record file.
-	private String path_of_record = "src/java_GUI/ACCOUNT.txt";
+	private String path_of_record = "./java_GUI/ACCOUNT.txt";
 
 	// Scanner for input from record file.
 	private Scanner record_reader;

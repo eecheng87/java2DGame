@@ -4,13 +4,17 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Message_Window extends JFrame
 {
 	// Font size of the text in JButton.
 	public static final int FONT_SIZE_BUTTON = 30;
 	// Font size of the text in JTextArea.
-	public static final int FONT_SIZE_REMINDER = 20;
+	public static final int FONT_SIZE_REMINDER = 25;
 	
 	// Size of Message_Window.
 	public static final int WIDTH_WINDOW = 600;
@@ -29,18 +33,29 @@ public class Message_Window extends JFrame
 	
 	// Position of JLabel for reminder.
 	public static final int POSITION_REMINDER_X = 0;
-	public static final int POSITION_REMINDER_Y = 100;
+	public static final int POSITION_REMINDER_Y = 120;
 
 	// Button for user to choose.
 	private JButton ok_button;
 
 	// Size of ok_button.
-	public static final int WIDTH_OK_BUTTON = 600;
+	public static final int WIDTH_OK_BUTTON = 150;
 	public static final int HEIGHT_OK_BUTTON = 40;
 	
 	// Position of ok_button.
-	public static final int POSITION_OK_BUTTON_X = 0;
-	public static final int POSITION_OK_BUTTON_Y = 290;
+	public static final int POSITION_OK_BUTTON_X = 225;
+	public static final int POSITION_OK_BUTTON_Y = 210;
+
+	// The warning image.
+	private BufferedImage warning_image;
+	
+	// Size of JLabel for warning_label.
+	public static final int WIDTH_WARNING = 70;
+	public static final int HEIGHT_WARNING = 70;
+	
+	// Position of JLabel for warning label.
+	public static final int POSITION_WARNING_X = 260;
+	public static final int POSITION_WARNING_Y = 30;
 	
 	public Message_Window(String message)
 	{
@@ -50,7 +65,18 @@ public class Message_Window extends JFrame
 		this.setLocation(POSITION_WINDOW_X, POSITION_WINDOW_Y);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setBackground(Color.LIGHT_GRAY);
+		this.getContentPane().setBackground(Color.DARK_GRAY);
+
+		// Add the warning icon to Dialog Window.
+		try
+		{
+			warning_image = ImageIO.read(new File("src/java_GUI/pic_in_GUI/warning_icon.jpg"));
+			this.setContentPane(new Image_Painter(warning_image, WIDTH_WARNING, HEIGHT_WARNING, POSITION_WARNING_X, POSITION_WARNING_Y));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		// Add a JLabel to Message_Window for reminder.
 		reminder = new JLabel();
@@ -58,7 +84,7 @@ public class Message_Window extends JFrame
 		reminder.setSize(WIDTH_REMINDER, HEIGHT_REMINDER);
 		reminder.setLocation(POSITION_REMINDER_X, POSITION_REMINDER_Y);
 		reminder.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_REMINDER));
-		reminder.setForeground(Color.WHITE);
+		reminder.setForeground(Color.BLACK);
 		reminder.setHorizontalAlignment(JLabel.CENTER);
 		this.add(reminder);
 
@@ -68,7 +94,7 @@ public class Message_Window extends JFrame
 		ok_button.setSize(WIDTH_OK_BUTTON, HEIGHT_OK_BUTTON);
 		ok_button.setLocation(POSITION_OK_BUTTON_X, POSITION_OK_BUTTON_Y);
 		ok_button.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE_BUTTON));
-		ok_button.setBackground(Color.WHITE);
+		ok_button.setBackground(Color.LIGHT_GRAY);
 		ok_button.setForeground(Color.BLACK);
 		ok_button.addActionListener(new Listener_For_OK_Button(this));
 		this.add(ok_button);
