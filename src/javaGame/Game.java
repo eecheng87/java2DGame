@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 	private static Mario mario = new Mario();
 	private static JFrame frame;
 	private static boolean shutDown=false;
+	private static boolean gameOverMsgShow=false;
 	private synchronized void start() {
 		if(running) {
 			
@@ -67,6 +68,11 @@ public class Game extends Canvas implements Runnable{
 					/*
 					 *  game over!
 					 */
+					Game_Over_Window gow;
+					if(!gameOverMsgShow) {
+						gow = new Game_Over_Window();
+						gameOverMsgShow = true;
+					}
 					shutDown=true;
 				}
 				((Map) map).display();
@@ -117,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		write_score();
 		frame.setVisible(false);
 		frame.dispose();
-		System.exit(0);
+		//System.exit(0);
 	}
 	
 	public static void write_score()
