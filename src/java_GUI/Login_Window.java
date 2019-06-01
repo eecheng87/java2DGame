@@ -100,8 +100,6 @@ public class Login_Window extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.ORANGE);
 
-		Game_Over_Window window = new Game_Over_Window();
-
 		// Set background image.
 		BufferedImage background_image;
 		try
