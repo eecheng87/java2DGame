@@ -70,7 +70,7 @@ public class Listener_For_Login_Button implements ActionListener
 				if (ref_username.getText().equals(username_in_a_record) && ref_password.getText().equals(password_in_a_record))
 				{
 					// Show the message.
-					Message_Window message_window = new Message_Window("Login successfully.");
+					//Message_Window message_window = new Message_Window("Login successfully.");
 					
 					ref_window.is_close = true;
 					
