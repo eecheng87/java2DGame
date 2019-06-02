@@ -24,6 +24,7 @@ public class Map extends JPanel{
 	private BufferedImage mario_1;
 	private BufferedImage mario_2;
 	private BufferedImage mario_3;
+	private BufferedImage needle_2;
 	private final int UNITS = 50;
 	private Graphics g;
 	private int animationState=0;
@@ -40,6 +41,7 @@ public class Map extends JPanel{
 	 *  mario_1 = 6
 	 *  mario_2 = 7
 	 *  mario_3 = 8
+	 *  needle_2 = 9
 	 *  
 	 /////////////////////////////*/
 	private int[][] map = new int[18][24];
@@ -65,7 +67,8 @@ public class Map extends JPanel{
 			mario_1 = ImageIO.read(new File("src/img/mario_1.png"));
 			mario_2 = ImageIO.read(new File("src/img/mario_2.png"));
 			mario_3 = ImageIO.read(new File("src/img/mario_3.png"));
-				
+			needle_2 = ImageIO.read(new File("src/img/needle_2.png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,6 +87,7 @@ public class Map extends JPanel{
 			mario_1 = ImageIO.read(new File("src/img/mario_1.png"));
 			mario_2 = ImageIO.read(new File("src/img/mario_2.png"));
 			mario_3 = ImageIO.read(new File("src/img/mario_3.png"));
+			needle_2 = ImageIO.read(new File("src/img/needle_2.png"));
 				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -181,6 +185,8 @@ public class Map extends JPanel{
 						g.drawImage(mario_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==8)
 						g.drawImage(mario_3, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==9)
+						g.drawImage(needle_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 			init = true;
 		}else {
@@ -190,6 +196,9 @@ public class Map extends JPanel{
 			// set PLAYER's image
 			mario.setState(marioSprite(mario.getState()));
 			map[mario.getX()][mario.getY()] = mario.getState();
+			// clear last column to needle
+			for(int i=3;i<15;i++)
+				map[i][23] = 9;
 			
 			for(int i=0; i<18; i++)
 				for(int j=0; j<24; j++) {
@@ -211,6 +220,8 @@ public class Map extends JPanel{
 						g.drawImage(mario_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 					else if(map[i][j]==8)
 						g.drawImage(mario_3, j*UNITS, i*UNITS, UNITS , UNITS, this);
+					else if(map[i][j]==9)
+						g.drawImage(needle_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 		}
 	}
