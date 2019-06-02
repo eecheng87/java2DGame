@@ -10,6 +10,7 @@ public class Mario implements KeyListener{
 	private int state; // control which sprite will be set
 	private boolean alive;
 	private Map m;
+	private boolean jamp ; 
 	
 	Mario(){
 		alive = true;
@@ -21,60 +22,128 @@ public class Mario implements KeyListener{
 		m = (Map) map;
 	}
 	public int getX() {
+		gravity() ;
 		return cor_x;
 	}
-	public int getY() {
+	public int getY() 
+	{
+		if(cor_y >= 22)
+		 alive = false ; 
+		else if(!block(cor_x , cor_y - 1))
+		 cor_y = cor_y + 1 ;
+		else if(!block(cor_x , cor_y + 1))
+		 cor_y = cor_y - 1 ;
 		return cor_y;
 	}
-	public int getMoney() {
+	public int getMoney() 
+	{
 		return money;
 	}
-	public int getState() {
+	public int getState() 
+	{
 		return state;
 	}
-	public void setState(int i) {
+	public void setState(int i) 
+	{
 		this.state = i;
 	}
-	public boolean getAlive() {
+	public boolean getAlive() 
+	{
 		return alive;
 	}
-
+	//judge the block whether can pass
+	private boolean block(int x , int y)
+	{
+	 if(m.getMap()[x][y] == 5)
+		alive = false ; 
+	 if((m.getMap()[x][y] == 1) || (m.getMap()[x][y] == 2))
+	   return  false ; 
+	 return true ; 
+	}
+	//try to simulate the gravity
+    private void gravity()
+    {
+       switch(m.getMap()[cor_x + 1][cor_y])
+       {
+        	case 0:
+        		 cor_x = cor_x + 1 ; 
+        		break ;
+        	case 3:
+        	case 4:
+        		 cor_x = cor_x + 1 ;
+                 money  = money + 1 ;
+                break ; 
+        	//set the endgame condition2
+        	case 5 :
+        		alive = false ; 
+        		if(m.getMap()[cor_x + 1][cor_y - 1] == 5)
+        		 alive = false ; 
+        		break ; 
+        	case 1:
+        	case 2:
+        		jamp = false;
+        	default: ; 
+       
+     }
+     //set the endgame condition3
+	 if(cor_x >= 17)
+	   alive = false ;
+    }
+    //describe the action of jump
+    private void jamp_up(boolean jamp)
+    {
+     int count = 0 ; 
+     if(!jamp)
+     {	  
+       while(count < 4)   	 
+       {
+        if((m.getMap()[cor_x - count][cor_y] == 1) || (m.getMap()[cor_x - count][cor_y] == 2))
+         break ; 
+        else 
+         ++ count ; 
+       }
+      cor_x = cor_x - count ; 
+      jamp = true ; 
+     }
+    }
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) 
+	{
 		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
-		switch(key) {
+		// m.getMap()[i][j] means get map[i][j] in current Map
+		switch(key) 
+		{
 			case KeyEvent.VK_UP:
-				cor_x = cor_x -1;
-				System.out.println(m.getMap()[0][0]);
-				/*
-				 * 
-				 *  m.getMap()[i][j] means get map[i][j] in current Map
-				 * 
-				 */
+				if(cor_x > 4)
+				{
+				 jamp_up(jamp) ; 
+				}
 				break;
 			case KeyEvent.VK_DOWN:
-				
-				System.out.println("DOWN");
+				if(block(cor_x + 1 , cor_y) && (cor_x != 16)) 
+				 cor_x = cor_x + 1 ; 
 				break;
 			case KeyEvent.VK_RIGHT:
-				System.out.println("right");
-				alive = false;
+				cor_y = cor_y + 1 ; 
 				break;
 			case KeyEvent.VK_LEFT:
-				System.out.println("left");
+				 if(block(cor_x , cor_y - 1))
+				  cor_y = cor_y - 1 ;
 				break;
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent arg0) 
+	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent arg0) 
+	{
 		// TODO Auto-generated method stub
 		
 	}
