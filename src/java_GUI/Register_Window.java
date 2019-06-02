@@ -5,6 +5,12 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Register_Window extends JFrame
 {
@@ -26,7 +32,7 @@ public class Register_Window extends JFrame
 	public static final int HEIGHT_ENTER_FIELD_USERNAME = 50;
 	
 	// Position of JTextField for username.
-	public static final int POSITION_ENTER_FIELD_USERNAME_X = 250;
+	public static final int POSITION_ENTER_FIELD_USERNAME_X = 100;
 	public static final int POSITION_ENTER_FIELD_USERNAME_Y = 140;
 
 	// Property of JLabel for username.
@@ -38,7 +44,7 @@ public class Register_Window extends JFrame
 	public static final int HEIGHT_LABEL_USERNAME = 50;
 	
 	// Position of JLabel for username.
-	public static final int POSITION_LABEL_USERNAME_X = 420;
+	public static final int POSITION_LABEL_USERNAME_X = 270;
 	public static final int POSITION_LABEL_USERNAME_Y = 100;
 	
 	// Property of JTextField for password.
@@ -50,7 +56,7 @@ public class Register_Window extends JFrame
 	public static final int HEIGHT_ENTER_FIELD_PASSWORD = 50;
 	
 	// Position of JTextField for password.
-	public static final int POSITION_ENTER_FIELD_PASSWORD_X = 250;
+	public static final int POSITION_ENTER_FIELD_PASSWORD_X = 100;
 	public static final int POSITION_ENTER_FIELD_PASSWORD_Y = 250;
 	
 	// Property of JLabel for password.
@@ -62,7 +68,7 @@ public class Register_Window extends JFrame
 	public static final int HEIGHT_LABEL_PASSWORD = 50;
 	
 	// Position of JLabel for password.
-	public static final int POSITION_LABEL_PASSWORD_X = 420;
+	public static final int POSITION_LABEL_PASSWORD_X = 270;
 	public static final int POSITION_LABEL_PASSWORD_Y = 210;
 
 	// Font size of the text in JLabel and JTextField.
@@ -77,7 +83,7 @@ public class Register_Window extends JFrame
 	public static final int HEIGHT_BUTTON = 50;
 	
 	// Position of JButton.
-	public static final int POSITION_BUTTON_X = 250;
+	public static final int POSITION_BUTTON_X = 100;
 	public static final int POSITION_BUTTON_Y = 360;
 
 	// Constructor.
@@ -90,6 +96,18 @@ public class Register_Window extends JFrame
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
+
+		// Set background image.
+		BufferedImage background_image;
+		try
+		{
+			background_image = ImageIO.read(new File("src/java_GUI/pic_in_GUI/register_background.jpg"));
+			this.setContentPane(new Image_Painter(background_image, WIDTH_WINDOW, HEIGHT_WINDOW, 0, 0));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		// Add a JTextField to Login_Window for username.
 		enter_field_username = new JTextField("");

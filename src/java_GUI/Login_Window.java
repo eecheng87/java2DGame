@@ -3,8 +3,15 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Login_Window extends JFrame
 {
@@ -86,12 +93,24 @@ public class Login_Window extends JFrame
  	public Login_Window()
 	{	
 		// Set basic property.
-		super("Login");
+		super("Right-To-Left Mario");
 		this.setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
 		this.setLocation(POSITION_WINDOW_X, POSITION_WINDOW_Y);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.ORANGE);
+
+		// Set background image.
+		BufferedImage background_image;
+		try
+		{
+			background_image = ImageIO.read(new File("src/java_GUI/pic_in_GUI/mario_background.jpg"));
+			this.setContentPane(new Image_Painter(background_image, WIDTH_WINDOW, HEIGHT_WINDOW, 0, 0));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		// Add a JTextField to Login_Window for username.
 		enter_field_username = new JTextField("");
@@ -131,8 +150,8 @@ public class Login_Window extends JFrame
 		confirm_button.setSize(WIDTH_BUTTON, HEIGHT_BUTTON);
 		confirm_button.setLocation(POSITION_BUTTON_X, POSITION_BUTTON_Y);
 		confirm_button.setFont(new Font("Courier new", Font.ITALIC + Font.BOLD, FONT_SIZE));
-		confirm_button.setBackground(Color.YELLOW);
-		confirm_button.setForeground(Color.LIGHT_GRAY);
+		confirm_button.setBackground(Color.GREEN);
+		confirm_button.setForeground(Color.DARK_GRAY);
 		confirm_button.addActionListener(new Listener_For_Login_Button(enter_field_username, enter_field_password, this));
 		this.add(confirm_button);
 
@@ -142,3 +161,5 @@ public class Login_Window extends JFrame
 		is_close = false;
 	}
 }
+
+
