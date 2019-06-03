@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
  
 public class Game extends Canvas implements Runnable{
@@ -28,6 +29,8 @@ public class Game extends Canvas implements Runnable{
 	private static JFrame frame;
 	private static boolean shutDown=false;
 	private static boolean gameOverMsgShow=false;
+	private static JLabel scoreLabel;
+	private static boolean textToggleFlag = true;
 	private synchronized void start() {
 		if(running) {
 			
@@ -63,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 				
 				Random rand = new Random();
 				score+=rand.nextInt(11);
-			
+				textToggleFlag = true;
 				if(!mario.getAlive()) {
 					/*
 					 *  game over!
@@ -76,7 +79,7 @@ public class Game extends Canvas implements Runnable{
 					shutDown=true;
 				}
 				((Map) map).display();
-
+				scoreLabel.setText(String.valueOf(score));
 				start = System.nanoTime();
 				
 			}
@@ -87,6 +90,10 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		scoreLabel = new JLabel("60");
+		scoreLabel.setFont(new Font("", Font.PLAIN, 40));
+		scoreLabel.setSize(120, 60);
+		
 		Game game = new Game();
 		//Mario mario = new Mario();
 		
@@ -100,6 +107,7 @@ public class Game extends Canvas implements Runnable{
 		//System.out.print("B");
 		game.start();
  
+		
 		frame = new JFrame();
 		map = new Map(mario);
 		mario.setMap(map);
@@ -107,7 +115,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMaximumSize(new Dimension(WIDTH,HEIGHT));
 		frame.setMinimumSize(new Dimension(WIDTH,HEIGHT));
-	
+		//frame.add(scoreLabel);
 		frame.add(game);
 		frame.add(map);
 		map.setPreferredSize(new Dimension(50,50));
@@ -119,7 +127,24 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		while(!shutDown)System.out.print("");
+		
+		//scoreLabel.setLocation(300, 300);
+		frame.setLayout(null);
+
+		
+		while(!shutDown) {
+			//System.out.print("");
+			if(textToggleFlag) {
+				map.remove(scoreLabel);
+				scoreLabel = new JLabel(String.valueOf(score));
+				scoreLabel.setFont(new Font("", Font.PLAIN, 40));
+				scoreLabel.setSize(120, 60);
+				map.setLayout(null);
+				scoreLabel.setLocation(1120, 10);
+				map.add(scoreLabel);
+				textToggleFlag = false;
+			}
+		}
 		write_score();
 		frame.setVisible(false);
 		frame.dispose();

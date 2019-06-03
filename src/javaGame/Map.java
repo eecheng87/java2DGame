@@ -1,6 +1,7 @@
 package javaGame;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import com.sun.prism.Image;
@@ -30,6 +31,7 @@ public class Map extends JPanel{
 	private int animationState=0;
 	private java.awt.Image img;
 	private Mario mario;
+	
 	///////////////////////////////
 	/*
 	 *  sky = 0
