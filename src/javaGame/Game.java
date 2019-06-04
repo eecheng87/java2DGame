@@ -184,7 +184,8 @@ public class Game extends Canvas implements Runnable{
 			reader = new Scanner(new FileInputStream("src/java_GUI/SCORE_" + usrName + ".txt"));
 			record = reader.nextLine();
 			st = new StringTokenizer(record);
-			
+			reader.close();
+
 			// The username isn't necessary to keep.
 			st.nextToken();
 
