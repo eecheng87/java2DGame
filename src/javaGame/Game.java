@@ -32,7 +32,9 @@ public class Game extends Canvas implements Runnable{
 	private static boolean shutDown=false;
 	private static boolean gameOverMsgShow=false;
 	private static JLabel scoreLabel;
+	private static JLabel bestLabel;
 	private static boolean textToggleFlag = true;
+	private static String bestScore;
 	private synchronized void start() {
 		if(running) {
 			
@@ -95,6 +97,9 @@ public class Game extends Canvas implements Runnable{
 		scoreLabel = new JLabel("60");
 		scoreLabel.setFont(new Font("", Font.PLAIN, 40));
 		scoreLabel.setSize(120, 60);
+
+		
+		
 		
 		Game game = new Game();
 		//Mario mario = new Mario();
@@ -105,7 +110,7 @@ public class Game extends Canvas implements Runnable{
 			usrName = login_window.enter_field_username.getText();
 		
 		System.out.println("usrName = " + usrName);
-		
+		bestScore = read_record();
 		//System.out.print("B");
 		game.start();
  
@@ -133,16 +138,21 @@ public class Game extends Canvas implements Runnable{
 		//scoreLabel.setLocation(300, 300);
 		frame.setLayout(null);
 
-		
+		bestLabel = new JLabel("BEST:"+bestScore);
+		bestLabel.setFont(new Font("", Font.PLAIN, 20));
+		bestLabel.setSize(120, 60);
+		map.setLayout(null);
+		bestLabel.setLocation(820, 10);
+		map.add(bestLabel);
 		while(!shutDown) {
 			//System.out.print("");
 			if(textToggleFlag) {
 				map.remove(scoreLabel);
-				scoreLabel = new JLabel(String.valueOf(score));
-				scoreLabel.setFont(new Font("", Font.PLAIN, 40));
+				scoreLabel = new JLabel("NOW:"+String.valueOf(score));
+				scoreLabel.setFont(new Font("", Font.PLAIN, 20));
 				scoreLabel.setSize(120, 60);
 				map.setLayout(null);
-				scoreLabel.setLocation(1120, 10);
+				scoreLabel.setLocation(1060, 10);
 				map.add(scoreLabel);
 				textToggleFlag = false;
 			}
