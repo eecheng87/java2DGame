@@ -80,15 +80,15 @@ public class Map extends JPanel{
 		mario = m;
 		try {
 			// set up each pixel image
-			grass = ImageIO.read(new File("src/img/grass.png"));
-			dirt = ImageIO.read(new File("src/img/dirt.png"));
-			sky = ImageIO.read(new File("src/img/sky.png"));
-			coin_1 = ImageIO.read(new File("src/img/coin_1.png"));
-			coin_2 = ImageIO.read(new File("src/img/coin_2.png"));
-			needle = ImageIO.read(new File("src/img/needle.png"));
-			mario_1 = ImageIO.read(new File("src/img/mario_1.png"));
-			mario_2 = ImageIO.read(new File("src/img/mario_2.png"));
-			mario_3 = ImageIO.read(new File("src/img/mario_3.png"));
+			grass    = ImageIO.read(new File("src/img/grass.png"));
+			dirt     = ImageIO.read(new File("src/img/dirt.png"));
+			sky      = ImageIO.read(new File("src/img/sky.png"));
+			coin_1   = ImageIO.read(new File("src/img/coin_1.png"));
+			coin_2   = ImageIO.read(new File("src/img/coin_2.png"));
+			needle   = ImageIO.read(new File("src/img/needle.png"));
+			mario_1  = ImageIO.read(new File("src/img/mario_1.png"));
+			mario_2  = ImageIO.read(new File("src/img/mario_2.png"));
+			mario_3  = ImageIO.read(new File("src/img/mario_3.png"));
 			needle_2 = ImageIO.read(new File("src/img/needle_2.png"));
 				
 		} catch (IOException e) {
@@ -124,11 +124,11 @@ public class Map extends JPanel{
 			for(int j=23; j>0; j--) {
 				// implement animation effect
 				// money animation
-				if(map[i][j-1]==3)
+				if(map[i][j-1] == 3)
 					map[i][j] = 4;
-				else if(map[i][j-1]==4)
+				else if(map[i][j-1] == 4)
 					map[i][j] = 3;
-				else if(map[i][j-1]==6||map[i][j-1]==7||map[i][j-1]==8)
+				else if(map[i][j-1] == 6 || map[i][j-1] == 7|| map[i][j-1] == 8)
 					// if last moment is mario, next cycle => clear
 					map[i][j] = 0;
 				else
@@ -171,23 +171,23 @@ public class Map extends JPanel{
 					// config corresponding image with map info.
 					if(map[i][j]==0)
 						g.drawImage(sky, j*UNITS, i*UNITS, UNITS, UNITS, this);
-					else if(map[i][j]==1)
+					else if(map[i][j] == 1)
 						g.drawImage(grass, j*UNITS, i*UNITS, UNITS, UNITS, this);
-					else if(map[i][j]==2)
+					else if(map[i][j] == 2)
 						g.drawImage(dirt, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==3)
+					else if(map[i][j] == 3)
 						g.drawImage(coin_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==4)
+					else if(map[i][j] == 4)
 						g.drawImage(coin_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==5)
+					else if(map[i][j] == 5)
 						g.drawImage(needle, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==6)
+					else if(map[i][j] == 6)
 						g.drawImage(mario_1, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==7)
+					else if(map[i][j] == 7)
 						g.drawImage(mario_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==8)
+					else if(map[i][j] == 8)
 						g.drawImage(mario_3, j*UNITS, i*UNITS, UNITS , UNITS, this);
-					else if(map[i][j]==9)
+					else if(map[i][j] == 9)
 						g.drawImage(needle_2, j*UNITS, i*UNITS, UNITS , UNITS, this);
 				}
 			init = true;

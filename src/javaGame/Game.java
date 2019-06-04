@@ -11,7 +11,9 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
- 
+
+import java.util.StringTokenizer;
+
 public class Game extends Canvas implements Runnable{
 
 	public static final int WIDTH = 1200;
@@ -65,7 +67,7 @@ public class Game extends Canvas implements Runnable{
 				 */
 				
 				Random rand = new Random();
-				score+=rand.nextInt(11);
+				score += /*rand.nextInt(11) +*/ (mario.getMoney() + 1);
 				textToggleFlag = true;
 				if(!mario.getAlive()) {
 					/*
@@ -168,5 +170,31 @@ public class Game extends Canvas implements Runnable{
 			exception.printStackTrace();
 		}
 		
+	}
+
+	public static String read_record()
+	{
+		Scanner reader;
+		String record;
+		StringTokenizer st;
+
+		try
+		{
+			// Read the record.
+			reader = new Scanner(new FileInputStream("src/java_GUI/SCORE_" + usrName + ".txt"));
+			record = reader.nextLine();
+			st = new StringTokenizer(record);
+			reader.close();
+
+			// The username isn't necessary to keep.
+			st.nextToken();
+
+			return st.nextToken();
+		}
+		catch (FileNotFoundException e)
+		{
+			// New user, no previous record.
+			return "0";
+		}
 	}
 }
