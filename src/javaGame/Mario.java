@@ -29,7 +29,7 @@ public class Mario implements KeyListener{
 	{
 		if(cor_y >= 22)
 		 alive = false ; 
-		else if(!block(cor_x , cor_y - 1))
+		else if((!block(cor_x , cor_y - 1)) && (block(cor_x , cor_y + 1)))
 		 cor_y = cor_y + 1 ;
 		else if(!block(cor_x , cor_y + 1))
 		 cor_y = cor_y - 1 ;
@@ -66,7 +66,14 @@ public class Mario implements KeyListener{
        switch(m.getMap()[cor_x + 1][cor_y])
        {
         	case 0:
-        		 cor_x = cor_x + 1 ; 
+        		 if((m.getMap()[cor_x + 1][cor_y - 1] == 0) ||(m.getMap()[cor_x + 1][cor_y - 1] == 3) || (m.getMap()[cor_x + 1][cor_y - 1] == 4)) 
+        		  cor_x = cor_x + 1 ;
+        		 else
+        		 {
+        		  cor_x = cor_x + 1 ; 
+        		  cor_y = cor_y + 1 ; 
+        		 }
+        		  
         		break ;
         	case 3:
         	case 4:
@@ -128,7 +135,7 @@ public class Mario implements KeyListener{
 				cor_y = cor_y + 1 ; 
 				break;
 			case KeyEvent.VK_LEFT:
-				 if(block(cor_x , cor_y - 1))
+				 if(block(cor_x , cor_y - 1) && (cor_y > 2))
 				  cor_y = cor_y - 1 ;
 				break;
 		}

@@ -65,7 +65,7 @@ public class Game extends Canvas implements Runnable{
 				 */
 				
 				Random rand = new Random();
-				score+=rand.nextInt(11);
+				score += /*rand.nextInt(11) +*/ (mario.getMoney() + 1);
 				textToggleFlag = true;
 				if(!mario.getAlive()) {
 					/*
