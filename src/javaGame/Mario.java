@@ -128,7 +128,9 @@ public class Mario implements KeyListener{
 				}
 				break;
 			case KeyEvent.VK_DOWN:
-				if(block(cor_x + 1 , cor_y) && (cor_x != 16)) 
+				if(m.getMap()[cor_x + 1][cor_y] == 5)
+				 alive = false ; 
+			    else if(block(cor_x + 1 , cor_y) && (cor_x != 16)) 
 				 cor_x = cor_x + 1 ; 
 				break;
 			case KeyEvent.VK_RIGHT:

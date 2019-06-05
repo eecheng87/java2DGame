@@ -199,7 +199,7 @@ public class Map extends JPanel{
 			mario.setState(marioSprite(mario.getState()));
 			map[mario.getX()][mario.getY()] = mario.getState();
 			// clear last column to needle
-			for(int i=3;i<15;i++)
+			for(int i=0;i<18;i++)
 				map[i][23] = 9;
 			
 			for(int i=0; i<18; i++)
